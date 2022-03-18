@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "b99bc840-dc85-4f87-94c7-1eaf196bf630",
+		"name": "DJANGO_APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all posts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MDYxNzU1LCJqdGkiOiI3NmRlYzQ1YzkzYTU0ZjQzYmZmNThkZmUyMDQwNWEyMyIsInVzZXJfaWQiOjF9.bK_0YC61I16Udsu-QnbBDPMQu4gko2AjWnPd0kueo50"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/posts"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all posts from an user by user id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTk3NTgxLCJqdGkiOiIwZjU0OTEwY2Q1YjI0ZDY5YTY2MjIwYzA3NzU3NGYwYiIsInVzZXJfaWQiOjF9.ciph_71vZM5vCD-JORE2y_U2e4kR4dM5CddZgVnyJ7k"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/user/1"
+			},
+			"response": []
+		},
+		{
+			"name": "edit a post by post id if post creator",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTAzMTMzLCJqdGkiOiI2Yjc5MDVmYmI5ZmQ0ZTc4OWQ2YTRjZDQ4YjhmZjE1MSIsInVzZXJfaWQiOjF9.PW6igEYcMzn9nLEhvjSsjX_uhKEWPScdhDnZLKvIeUs"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"content\":\"some test\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts/1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete post by a post id post creator",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTk1OTkxLCJqdGkiOiI5MTgyOGYxYjMyNDg0NGJmOWZiNjZkZDM1MmM5MmNjMiIsInVzZXJfaWQiOjF9.GWKeRfE4TED0v6986O8nTVF71r0iVZo-juT9EQe_8x8"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"name111ree\",\"content\":\"some LOOOOLcontent\",\"created\":\"2022-02-10\",\"updated\":\"2022-02-10\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts/24"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTg3MzM5LCJqdGkiOiJhOGE0ODhhZjg0YjQ0Yjg0YjYwOTlkM2QxNWNiYjY3ZCIsInVzZXJfaWQiOjF9.-JDaxVD0HmpLhFNKCwGIMZ5isMOo7WPU6vpVtPW9vY0"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "lol some text",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": [
+								"/Users/alfred/Desktop/almostgaveafuck.jpeg",
+								"/Users/alfred/Desktop/Screen Shot 2022-03-11 at 12.17.58 PM.png"
+							]
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts/"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a post 2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTk1OTkxLCJqdGkiOiI5MTgyOGYxYjMyNDg0NGJmOWZiNjZkZDM1MmM5MmNjMiIsInVzZXJfaWQiOjF9.GWKeRfE4TED0v6986O8nTVF71r0iVZo-juT9EQe_8x8"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "its everyday bro with the disney channel flow! #ad #disney",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/alfred/Downloads/mickey-minnie-16x9.jpeg"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/posts/"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a comment for a post id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTk1NjgxLCJqdGkiOiI0MjRiMGVlNGJiY2Y0YzM2OGYwOGFjMTkwZWFlOTNjZSIsInVzZXJfaWQiOjF9.YGTzjbQRJXm4Tft11LlUqSHGPs79g1OhzScxRdQcL7g"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title\n",
+							"value": "lol some text",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/comments/25"
+			},
+			"response": []
+		},
+		{
+			"name": "Get comments for post id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTk1OTkxLCJqdGkiOiI5MTgyOGYxYjMyNDg0NGJmOWZiNjZkZDM1MmM5MmNjMiIsInVzZXJfaWQiOjF9.GWKeRfE4TED0v6986O8nTVF71r0iVZo-juT9EQe_8x8"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/comments/25"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment from comment id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3MTk1OTkxLCJqdGkiOiI5MTgyOGYxYjMyNDg0NGJmOWZiNjZkZDM1MmM5MmNjMiIsInVzZXJfaWQiOjF9.GWKeRfE4TED0v6986O8nTVF71r0iVZo-juT9EQe_8x8"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8000/comments/11"
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"paulgamer\", \"password\": \"paulpaul\", \"password2\": \"paulpaul\", \"email\": \"paul@paul.com\", \"first_name\": \"paul\", \"last_name\": \"polo\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/register/"
+			},
+			"response": []
+		},
+		{
+			"name": "register Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"jakepaul\", \"password\": \"jakepaul123\", \"password2\": \"jakepaul123\", \"email\": \"jakepaul@jakepaul.com\", \"first_name\": \"jakepaul\", \"last_name\": \"jakepaul\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/register/"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"jakepaul\", \"password\": \"jakepaul123\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/login/"
+			},
+			"response": []
+		},
+		{
+			"name": "login Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"jakepaul\", \"password\": \"jakepaul123\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/login/"
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"paulgamer\", \"password\": \"paulpaul\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/login/"
+			},
+			"response": []
+		},
+		{
+			"name": "login Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/users/"
+			},
+			"response": []
+		},
+		{
+			"name": "login Copy 3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2MTY1NzExLCJqdGkiOiIyYzIyNDU0OWU1ZDk0ZGQ3YjkyNWVjODgyNTdjNGU1NiIsInVzZXJfaWQiOjJ9.zbu-UY791vEeGoirJoHvxIoobZaA0ouFkWlE62HO5P8"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/user/1"
+			},
+			"response": []
+		},
+		{
+			"name": "login Copy 4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ2MTY1MzIxLCJqdGkiOiJmZjQ4NWYwNjg5ZjM0MjAyYTM0MjNhYzg0NjQ5N2JmYSIsInVzZXJfaWQiOjJ9.XASJHZixeIqDq9I0Z6BQTzLlAmjrTjfXx5ecmSRzMes"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/auth/user"
+			},
+			"response": []
+		}
+	]
+}
