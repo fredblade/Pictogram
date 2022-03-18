@@ -81,3 +81,6 @@ from posts_commentitem
 left JOIN auth_user
 on posts_commentitem.user_id_id = auth_user.id
 where posts_commentitem.post_id_id = 24
+
+
+select posts_postitem.id, posts_postitem.content, posts_postitem.image, posts_postitem.created, posts_postitem.updated, posts_postitem.user_id_id, auth_user.username from posts_postitem left JOIN auth_user on posts_postitem.user_id_id = auth_user.id

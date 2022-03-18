@@ -1,4 +1,5 @@
-from .serializers import PostItemSerializer, ImageItemSerializer, CommentItemSerializer, CommentItemListSerializer
+from .serializers import PostItemSerializer, ImageItemSerializer, CommentItemSerializer, CommentItemListSerializer, \
+    PostItemListSerializer
 from .models import PostItem, ImageItem, CommentItem
 from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth.models import User
@@ -30,7 +31,7 @@ import os
 class PostItemViewSet(FlexFieldsMixin, APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
-
+    
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
@@ -39,10 +40,12 @@ class PostItemViewSet(FlexFieldsMixin, APIView):
         print(request.user.username)
         print(request.user.id)
         # postitems = PostItem.objects.filter(user=request.user.id)
-        postitems = PostItem.objects.all()
-        serializer = PostItemSerializer(postitems, many=True)
+        # postitems = PostItem.objects.all()
+        postitems = PostItem.objects.raw(r'select posts_postitem.*, auth_user.username from posts_postitem left JOIN '
+                                         r'auth_user on posts_postitem.user_id_id = auth_user.id')
+        serializer = PostItemListSerializer(postitems, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
+    
     # 2. Create
     def post(self, request, *args, **kwargs):
         '''
@@ -59,14 +62,14 @@ class PostItemViewSet(FlexFieldsMixin, APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class PostItemDetailApiView(APIView):
+class PostItemDetailApiView(FlexFieldsMixin, APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
-
+    
     def get_object(self, post_id, user_id):
         '''
         Helper method to get the object with given todo_id, and user_id
@@ -75,22 +78,24 @@ class PostItemDetailApiView(APIView):
             return PostItem.objects.get(id=post_id)
         except PostItem.DoesNotExist:
             return None
-
+    
     # 3. Retrieve
     def get(self, request, post_id, *args, **kwargs):
         '''
         Retrieves the Todo with given todo_id
         '''
-        todo_instance = self.get_object(post_id, request.user.id)
-        if not todo_instance:
-            return Response(
-                {"res": "Object with todo id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        serializer = PostItemSerializer(todo_instance)
+        print('getting post', post_id)
+        item = PostItem.objects.raw(r'select posts_postitem.*, auth_user.username from posts_postitem left JOIN '
+                                    r'auth_user on posts_postitem.user_id_id = auth_user.id where posts_postitem.id = '
+                                    fr'{post_id}')
+        print(item)
+        try:
+            item = item[0]
+        except:
+            Response({'Error, not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = PostItemListSerializer(item)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
+    
     # 4. Update
     def put(self, request, post_id, *args, **kwargs):
         '''
@@ -111,7 +116,7 @@ class PostItemDetailApiView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
     # 5. Delete
     def delete(self, request, post_id, *args, **kwargs):
         '''
@@ -148,7 +153,7 @@ class PostItemDetailApiView(APIView):
 class PostsUserApiView(FlexFieldsMixin, APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.AllowAny]
-
+    
     def get(self, request, user_id, *args, **kwargs):
         '''
         List all the todo items for given requested user
@@ -163,7 +168,7 @@ class PostsUserApiView(FlexFieldsMixin, APIView):
 class CommentItemViewSet(FlexFieldsMixin, APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
-
+    
     # 1. List all
     def get(self, request, post_id, *args, **kwargs):
         '''
@@ -177,11 +182,11 @@ class CommentItemViewSet(FlexFieldsMixin, APIView):
                                            'posts_commentitem '
                                            'left JOIN auth_user on posts_commentitem.user_id_id = auth_user.id where '
                                            f'posts_commentitem.post_id_id = {post_id}')
-
+        
         serializer = CommentItemListSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
         # return Response(comments, status=status.HTTP_200_OK)
-
+    
     # 2. Create
     def post(self, request, post_id, *args, **kwargs):
         '''
@@ -193,16 +198,16 @@ class CommentItemViewSet(FlexFieldsMixin, APIView):
             'title': request.data.get('title'),
             'post_id': post_id,
             'user_id': request.user.id,
-
+            
             # 'username': request.user.username,
         }
         serializer = CommentItemSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
     # 5. Delete
     def delete(self, request, post_id, *args, **kwargs):
         '''
