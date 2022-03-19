@@ -59,14 +59,15 @@ class PostItemSerializer(FlexFieldsModelSerializer):
 
 
 class PostItemListSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    pk = serializers.IntegerField()
     content = serializers.CharField(max_length=255)
-    image = serializers.CharField(max_length=255)
     updated = serializers.DateField()
     created = serializers.DateField()
     user_id = serializers.ModelField(model_field=PostItem()._meta.get_field('user_id'))
     # user_id = serializers.ModelField(model_field=CommentItem()._meta.get_field('user_id'))
     # image_ppoi = serializers.CharField(max_length=255)
+    # image = serializers.CharField(max_length=255)
+    image = Base64ImageField(max_length=None, use_url=True)
     username = serializers.CharField(max_length=255)
 
 
